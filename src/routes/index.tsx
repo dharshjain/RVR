@@ -1,24 +1,21 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
+import { QuoteCta, SectionTitle } from "@/components/rvr-pages";
+import { industries, services } from "@/lib/rvr-content";
+import heroImage from "@/assets/rvr-port-hero.jpg";
+import networkImage from "@/assets/rvr-network.jpg";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({ meta: [{ title: "RVR Global Logistics — Moving Cargo. Connecting Markets." }, { name: "description", content: "Reliable sea, air and land freight, customs, warehousing and project logistics from India to the world." }, { property: "og:title", content: "RVR Global Logistics" }, { property: "og:description", content: "Moving Cargo. Connecting Markets. Enabling Growth." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  return <>
+    <section className="mx-auto max-w-site px-5 pb-5 pt-7 lg:px-8"><div className="grid gap-5 lg:grid-cols-12"><div className="animate-rise relative min-h-[560px] overflow-hidden rounded-hero lg:col-span-8"><img src={heroImage} alt="Container ship at a global port" width={1600} height={1000} className="absolute inset-0 size-full object-cover"/><div className="absolute inset-0 bg-hero-overlay"/><div className="absolute inset-x-0 bottom-0 p-7 text-surface lg:p-10"><p className="eyebrow flex items-center gap-2 text-surface/75"><span className="size-2 rounded-full bg-primary"/>Sea · Air · Land · Cross Trade</p><h1 className="mt-4 font-display text-[clamp(3.3rem,7vw,6.4rem)] leading-[.9]">Moving cargo.<br/>Connecting markets.</h1><p className="mt-5 max-w-xl text-surface/75">Global logistics solutions designed around your business.</p></div></div><aside className="animate-rise flex min-h-[320px] flex-col justify-between rounded-hero bg-surface p-7 lg:col-span-4"><div><p className="eyebrow">Your cargo. Our responsibility.</p><h2 className="mt-4 font-display text-4xl leading-none">One partner.<br/>Every movement.</h2><p className="mt-5 text-sm leading-relaxed text-muted-foreground">From origin to destination, RVR brings together the routes, resources, documentation and expertise to keep cargo moving.</p></div><div className="grid gap-3"><Link to="/get-a-quote" className="pill-link justify-center bg-foreground text-background">Get a quote <ArrowRight size={15}/></Link><Link to="/track-shipment" className="pill-link justify-center">Track shipment</Link></div></aside></div></section>
+    <section className="mx-auto max-w-site px-5 py-14 lg:px-8"><div className="mb-8 flex items-end justify-between gap-5"><SectionTitle label="01 — What we do" title="Complete logistics. One connected network."/><Link to="/services" className="pill-link hidden sm:inline-flex">All services <ArrowRight size={14}/></Link></div><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{services.map(s => <Link key={s.slug} to="/services/$slug" params={{slug:s.slug}} className="group rounded-hero bg-surface p-6 outline outline-1 -outline-offset-1 outline-foreground/5 transition-transform hover:-translate-y-1"><p className="eyebrow text-primary">{s.number} — {s.eyebrow}</p><h3 className="mt-8 font-display text-3xl">{s.name}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.intro.slice(0,118)}…</p><ArrowRight className="mt-6 transition-transform group-hover:translate-x-1" size={18}/></Link>)}</div></section>
+    <section className="border-y border-border bg-surface"><div className="mx-auto grid max-w-site gap-10 px-5 py-14 lg:grid-cols-12 lg:px-8"><div className="lg:col-span-5"><SectionTitle label="02 — Global network" title="From local origins to global destinations" text="RVR connects Indian businesses with international destinations through a coordinated network of shipping, air cargo, road transportation, customs and logistics partners."/><Link to="/network" className="pill-link mt-7">Explore our network <ArrowRight size={14}/></Link></div><div className="overflow-hidden rounded-hero lg:col-span-7"><img src={networkImage} loading="lazy" alt="Global routes centered on India" width={1400} height={900} className="aspect-[16/10] size-full object-cover"/></div></div></section>
+    <section className="mx-auto max-w-site px-5 py-14 lg:px-8"><SectionTitle label="03 — Industries" title="Different cargo. Different strategies."/><div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">{industries.map((item,i)=><div key={item} className="flex min-h-20 items-center gap-3 rounded-hero bg-surface px-5"><span className={i%3===0?"size-2.5 rounded-full bg-primary":i%3===1?"size-2.5 rounded-full bg-sky":"size-2.5 rounded-full bg-accent"}/><span className="font-display text-xl">{item}</span></div>)}</div></section>
+    <QuoteCta/>
+  </>;
 }
