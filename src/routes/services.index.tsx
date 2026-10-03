@@ -1,0 +1,7 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
+import { PageHero, QuoteCta } from "@/components/rvr-pages";
+import { services } from "@/lib/rvr-content";
+
+export const Route = createFileRoute("/services/")({ head: () => ({ meta: [{title:"Logistics Services — RVR Global Logistics"},{name:"description",content:"Explore nine connected freight, customs, warehousing, handling and inspection services."},{property:"og:title",content:"Logistics Services — RVR"},{property:"og:description",content:"Complete logistics. One connected network."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}] }), component: Services });
+function Services(){return <><PageHero eyebrow="Services" title="Complete Logistics. One Connected Network." intro="Integrated solutions designed to simplify domestic and international cargo movement."/><section className="mx-auto max-w-site px-5 pb-16 lg:px-8"><div className="grid gap-px overflow-hidden rounded-hero border border-border bg-border md:grid-cols-2 lg:grid-cols-3">{services.map(s=><Link key={s.slug} to="/services/$slug" params={{slug:s.slug}} className="group min-h-72 bg-surface p-7 hover:bg-background"><p className="eyebrow text-primary">{s.number} — {s.eyebrow}</p><h2 className="mt-10 font-display text-3xl">{s.name}</h2><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.intro}</p><ArrowRight className="mt-6 transition-transform group-hover:translate-x-1" size={18}/></Link>)}</div></section><QuoteCta/></>}
