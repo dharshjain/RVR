@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep company copy and service definitions centralized in `src/lib/rvr-content.ts` so every route presents consistent logistics information.
+- Keep shared public-site navigation and footer in the root shell because every marketing route uses the same wayfinding.
