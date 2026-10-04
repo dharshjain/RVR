@@ -53,17 +53,29 @@ export function PageHero({ eyebrow, title, intro, image = "sea" }: { eyebrow: st
   );
 }
 
-export function SectionTitle({ label, title, text }: { label: string; title: string; text?: string }) {
+export function SectionTitle({ label, title, text, dark }: { label: string; title: string; text?: string; dark?: boolean }) {
   return (
     <div>
-      <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-blue-600 bg-blue-50 dark:bg-slate-900 px-3 py-1 rounded-full border border-blue-200/60 dark:border-slate-800">
-        <span className="size-1.5 rounded-full bg-blue-600" />
+      <div className={`inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${
+        dark 
+          ? "text-blue-400 bg-blue-950/80 border-blue-800" 
+          : "text-blue-600 bg-blue-50 dark:bg-slate-900 border-blue-200/60 dark:border-slate-800"
+      }`}>
+        <span className={`size-1.5 rounded-full ${dark ? "bg-blue-400" : "bg-blue-600"}`} />
         {label}
       </div>
-      <h2 className="mt-3.5 font-display text-3xl sm:text-4xl leading-tight text-slate-900 dark:text-white lg:text-5xl">
+      <h2 className={`mt-3.5 font-display text-3xl sm:text-4xl leading-tight lg:text-5xl font-semibold ${
+        dark ? "text-white" : "text-slate-900 dark:text-white"
+      }`}>
         {title}
       </h2>
-      {text && <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300">{text}</p>}
+      {text && (
+        <p className={`mt-4 max-w-2xl text-base leading-relaxed ${
+          dark ? "text-slate-300" : "text-slate-600 dark:text-slate-300"
+        }`}>
+          {text}
+        </p>
+      )}
     </div>
   );
 }

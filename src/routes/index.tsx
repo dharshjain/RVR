@@ -470,7 +470,7 @@ function Index() {
       <section className="border-y border-blue-100 dark:border-slate-800 bg-slate-950 text-white">
         <div className="mx-auto max-w-site px-4 sm:px-6 py-16 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <SectionTitle label="04 — Our Process" title="Plan. Move. Monitor. Deliver." text="Every shipment follows a transparent, quality-controlled workflow." />
+            <SectionTitle label="04 — Our Process" title="Plan. Move. Monitor. Deliver." text="Every shipment follows a transparent, quality-controlled workflow." dark />
             
             {/* Mobile Horizontal Scroll Indicator Badge */}
             <div className="inline-flex items-center gap-2 rounded-full bg-blue-400/15 px-3.5 py-1.5 font-mono text-xs font-semibold text-blue-400 border border-blue-700/60 sm:hidden shrink-0 self-start sm:self-auto">
