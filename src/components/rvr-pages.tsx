@@ -70,7 +70,7 @@ export function SectionTitle({ label, title, text }: { label: string; title: str
 
 export function QuoteCta() {
   return (
-    <section className="mx-auto max-w-site px-4 sm:px-6 pb-16 lg:px-8">
+    <section className="mx-auto max-w-site px-4 sm:px-6 py-12 sm:py-16 lg:px-8">
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-950 p-8 text-white shadow-2xl shadow-blue-950/20 lg:p-14">
         {/* Subtle background graphic circles */}
         <div className="absolute -right-20 -top-20 size-80 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />

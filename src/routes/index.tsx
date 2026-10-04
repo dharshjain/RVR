@@ -1,5 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, Globe2, MessageSquare, DollarSign, Package, HeadphonesIcon, Search, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { 
+  ArrowRight, CheckCircle2, Globe2, MessageSquare, DollarSign, Package, HeadphonesIcon, 
+  Search, ChevronLeft, ChevronRight, Pause, Play,
+  Factory, Cog, FlaskConical, Pickaxe, Layers, LayoutGrid, Wheat, ShoppingBag, 
+  Wrench, Car, Shirt, PackageCheck, HardHat, Boxes 
+} from "lucide-react";
 import { QuoteCta, SectionTitle } from "@/components/rvr-pages";
 import { industries, services } from "@/lib/rvr-content";
 import { useState, useEffect } from "react";
@@ -113,12 +118,30 @@ const stats = [
   { value: "99.4%", label: "On-Time Delivery Rate" },
 ];
 
+const industryIcons: Record<string, { icon: typeof Factory; color: string; bg: string }> = {
+  "Industrial Products": { icon: Factory, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-900/60" },
+  "Engineering Goods": { icon: Cog, color: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-900/60" },
+  "Chemicals": { icon: FlaskConical, color: "text-cyan-600 dark:text-cyan-400", bg: "bg-cyan-50 dark:bg-cyan-950/60 border-cyan-200 dark:border-cyan-900/60" },
+  "Minerals": { icon: Pickaxe, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-950/60 border-amber-200 dark:border-amber-900/60" },
+  "Metals": { icon: Layers, color: "text-slate-600 dark:text-slate-300", bg: "bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700" },
+  "Ceramic & Tiles": { icon: LayoutGrid, color: "text-sky-600 dark:text-sky-400", bg: "bg-sky-50 dark:bg-sky-950/60 border-sky-200 dark:border-sky-900/60" },
+  "Agricultural Products": { icon: Wheat, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-900/60" },
+  "Food & FMCG": { icon: ShoppingBag, color: "text-rose-600 dark:text-rose-400", bg: "bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-900/60" },
+  "Machinery & Equipment": { icon: Wrench, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-900/60" },
+  "Automotive Components": { icon: Car, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-950/60 border-violet-200 dark:border-violet-900/60" },
+  "Textiles & Garments": { icon: Shirt, color: "text-fuchsia-600 dark:text-fuchsia-400", bg: "bg-fuchsia-50 dark:bg-fuchsia-950/60 border-fuchsia-200 dark:border-fuchsia-900/60" },
+  "Consumer Products": { icon: PackageCheck, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-900/60" },
+  "Project Cargo": { icon: HardHat, color: "text-orange-600 dark:text-orange-400", bg: "bg-orange-50 dark:bg-orange-950/60 border-orange-200 dark:border-orange-900/60" },
+  "General Cargo": { icon: Boxes, color: "text-teal-600 dark:text-teal-400", bg: "bg-teal-50 dark:bg-teal-950/60 border-teal-200 dark:border-teal-900/60" },
+};
+
 function Index() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [trackRef, setTrackRef] = useState("");
   const [trackType, setTrackType] = useState<"BL" | "AWB" | "CONTAINER">("CONTAINER");
   const [trackMsg, setTrackMsg] = useState("");
+  const [industryFilter, setIndustryFilter] = useState<string>("ALL");
 
   // Hero carousel auto-play interval
   useEffect(() => {
@@ -138,7 +161,7 @@ function Index() {
         <div className="grid gap-6 lg:grid-cols-12">
           {/* Main Visual Animated Hero Carousel Card */}
           <div 
-            className="group relative min-h-[540px] sm:min-h-[580px] overflow-hidden rounded-3xl lg:col-span-8 shadow-xl shadow-blue-950/15 border border-blue-100/60 dark:border-slate-800"
+            className="group relative flex flex-col justify-between min-h-[500px] sm:min-h-[560px] lg:min-h-[580px] overflow-hidden rounded-3xl lg:col-span-8 shadow-xl shadow-blue-950/15 border border-blue-100/60 dark:border-slate-800 p-5 sm:p-8 lg:p-10"
             onMouseEnter={() => setIsPlaying(false)}
             onMouseLeave={() => setIsPlaying(true)}
           >
@@ -164,66 +187,66 @@ function Index() {
             ))}
             
             {/* Top Badges & Control Bar */}
-            <div className="absolute top-6 left-6 right-6 z-20 flex items-center justify-between gap-4">
-              <div key={currentSlide.id + "-badge"} className="animate-rise inline-flex items-center gap-2 rounded-full bg-blue-600/90 border border-blue-400/30 px-3.5 py-1.5 font-mono text-xs font-medium uppercase tracking-wider text-white backdrop-blur-md shadow-md">
-                <span className="size-2 rounded-full bg-white animate-pulse" />
-                {currentSlide.badge}
+            <div className="relative z-20 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 pb-4">
+              <div key={currentSlide.id + "-badge"} className="animate-rise inline-flex items-center gap-2 rounded-full bg-blue-600/90 border border-blue-400/30 px-3 py-1 sm:px-3.5 sm:py-1.5 font-mono text-[11px] sm:text-xs font-medium uppercase tracking-wider text-white backdrop-blur-md shadow-md max-w-[70%] sm:max-w-full truncate">
+                <span className="size-2 rounded-full bg-white animate-pulse shrink-0" />
+                <span className="truncate">{currentSlide.badge}</span>
               </div>
 
               {/* Pause/Play & Next/Prev Controls */}
-              <div className="flex items-center gap-1.5 rounded-full bg-slate-950/70 border border-white/20 p-1 backdrop-blur-md text-white">
+              <div className="flex items-center gap-1 rounded-full bg-slate-950/80 border border-white/20 p-1 backdrop-blur-md text-white shrink-0 ml-auto sm:ml-0">
                 <button
                   type="button"
                   onClick={() => setActiveSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
-                  className="p-1.5 rounded-full hover:bg-white/20 transition-colors"
+                  className="p-1 rounded-full hover:bg-white/20 transition-colors"
                   aria-label="Previous slide"
                 >
-                  <ChevronLeft size={16} />
+                  <ChevronLeft size={15} />
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsPlaying(!isPlaying)}
-                  className="p-1.5 rounded-full hover:bg-white/20 transition-colors"
+                  className="p-1 rounded-full hover:bg-white/20 transition-colors"
                   aria-label={isPlaying ? "Pause carousel" : "Play carousel"}
                 >
-                  {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+                  {isPlaying ? <Pause size={13} /> : <Play size={13} />}
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveSlide((prev) => (prev + 1) % heroSlides.length)}
-                  className="p-1.5 rounded-full hover:bg-white/20 transition-colors"
+                  className="p-1 rounded-full hover:bg-white/20 transition-colors"
                   aria-label="Next slide"
                 >
-                  <ChevronRight size={16} />
+                  <ChevronRight size={15} />
                 </button>
-                <span className="px-2.5 font-mono text-[11px] font-medium text-blue-200">
+                <span className="px-2 font-mono text-[10px] sm:text-[11px] font-medium text-blue-200">
                   0{activeSlide + 1} / 0{heroSlides.length}
                 </span>
               </div>
             </div>
 
             {/* Slide Content with Entrance Animation */}
-            <div className="absolute inset-x-0 bottom-0 z-20 p-7 text-white lg:p-10">
+            <div className="relative z-20 text-white mt-auto pt-4">
               <div key={currentSlide.id} className="animate-fade-in-slide max-w-2xl">
-                <h1 className="font-display text-[clamp(2.5rem,5.5vw,5rem)] leading-[1.02] text-balance font-semibold drop-shadow-sm whitespace-pre-line">
+                <h1 className="font-display text-2xl sm:text-4xl lg:text-5xl xl:text-6xl leading-[1.08] text-balance font-semibold drop-shadow-sm whitespace-pre-line">
                   {currentSlide.title}
                 </h1>
-                <p className="mt-3.5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-100/90 font-normal drop-shadow-sm">
+                <p className="mt-2.5 sm:mt-3.5 max-w-xl text-xs sm:text-base lg:text-lg leading-relaxed text-slate-100/90 font-normal drop-shadow-sm">
                   {currentSlide.intro}
                 </p>
 
                 {/* Quick Hero Action Buttons */}
-                <div className="mt-7 flex flex-wrap items-center gap-3">
+                <div className="mt-5 sm:mt-7 flex flex-wrap items-center gap-2.5 sm:gap-3">
                   <Link 
                     to="/get-a-quote" 
-                    className="pill-link bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/30 transition-all border-transparent font-medium"
+                    className="pill-link bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/30 transition-all border-transparent font-medium text-[11px] sm:text-xs min-h-10 sm:min-h-11 px-4 sm:px-5"
                   >
                     Request a Quote <ArrowRight size={15} />
                   </Link>
                   <Link 
                     to="/services/$slug"
                     params={{ slug: currentSlide.slug }}
-                    className="pill-link bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur-md font-medium"
+                    className="pill-link bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur-md font-medium text-[11px] sm:text-xs min-h-10 sm:min-h-11 px-4 sm:px-5"
                   >
                     Explore Service <ArrowRight size={14} />
                   </Link>
@@ -231,14 +254,14 @@ function Index() {
               </div>
 
               {/* Indicator Dots at bottom */}
-              <div className="mt-8 flex items-center gap-2">
+              <div className="mt-5 sm:mt-8 flex items-center gap-2">
                 {heroSlides.map((slide, idx) => (
                   <button
                     key={slide.id}
                     type="button"
                     onClick={() => setActiveSlide(idx)}
                     className={`h-1.5 rounded-full transition-all duration-500 ${
-                      idx === activeSlide ? "w-8 bg-blue-400" : "w-2 bg-white/40 hover:bg-white/70"
+                      idx === activeSlide ? "w-7 sm:w-8 bg-blue-400" : "w-2 bg-white/40 hover:bg-white/70"
                     }`}
                     aria-label={`Go to slide ${idx + 1}`}
                   />
@@ -296,13 +319,13 @@ function Index() {
               label="01 — Who We Are"
               title="More Than Moving Cargo. We Move Possibilities."
             />
-            <div className="mt-6 grid grid-cols-2 gap-4">
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-4 dark:bg-slate-900 dark:border-slate-800">
-                <p className="font-display text-2xl text-blue-600 font-bold">Precision</p>
+                <p className="font-display text-xl sm:text-2xl text-blue-600 font-bold truncate">Precision</p>
                 <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">Coordinated scheduling & carrier compliance</p>
               </div>
               <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-4 dark:bg-slate-900 dark:border-slate-800">
-                <p className="font-display text-2xl text-blue-600 font-bold">Transparency</p>
+                <p className="font-display text-xl sm:text-2xl text-blue-600 font-bold truncate">Transparency</p>
                 <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">Clear documentation & status updates</p>
               </div>
             </div>
@@ -525,22 +548,83 @@ function Index() {
       {/* INDUSTRIES */}
       <section className="border-y border-blue-100 dark:border-slate-800 bg-blue-50/40 dark:bg-slate-900/40">
         <div className="mx-auto max-w-site px-4 sm:px-6 py-16 lg:px-8">
-          <SectionTitle 
-            label="06 — Industries Served" 
-            title="Logistics Expertise Across Core Industries" 
-            text="Diverse cargo demands specialized transportation strategies. We manage logistics across engineering, industrial, chemical, consumer and agricultural sectors." 
-          />
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <SectionTitle 
+              label="06 — Industries Served" 
+              title="Logistics Expertise Across Core Industries" 
+              text="Diverse cargo demands specialized transportation strategies. We manage logistics across engineering, industrial, chemical, consumer and agricultural sectors." 
+            />
+            {/* Mobile Swipe Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full bg-blue-600/10 dark:bg-blue-500/20 px-3.5 py-1.5 font-mono text-xs font-semibold text-blue-600 dark:text-blue-400 border border-blue-200/80 dark:border-blue-800/80 sm:hidden shrink-0 self-start sm:self-auto">
+              <span>SWIPE SECTORS</span>
+              <ArrowRight size={14} className="animate-slide-x" />
+            </div>
+          </div>
           
-          <div className="mt-10 grid grid-cols-2 gap-3.5 md:grid-cols-3 lg:grid-cols-4">
-            {industries.map((item, i) => (
-              <div 
-                key={item} 
-                className="flex min-h-18 items-center gap-3 rounded-2xl border border-blue-100 dark:border-slate-800 bg-white dark:bg-slate-950 px-5 py-4 shadow-sm hover:border-blue-400 transition-colors"
+          {/* Mobile Filter Chips */}
+          <div className="mt-6 flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 sm:hidden -mx-4 px-4">
+            {[
+              { id: "ALL", label: "All Sectors (14)" },
+              { id: "INDUSTRIAL", label: "Industrial & Eng" },
+              { id: "AGRI", label: "Agri & Food" },
+              { id: "CONSUMER", label: "Consumer & Retail" },
+              { id: "PROJECT", label: "Project Cargo" },
+            ].map((cat) => (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setIndustryFilter(cat.id)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-medium shrink-0 transition-all ${
+                  industryFilter === cat.id
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/30"
+                    : "bg-white dark:bg-slate-900 border border-blue-100 dark:border-slate-800 text-slate-700 dark:text-slate-300"
+                }`}
               >
-                <span className={`size-3 rounded-full shrink-0 ${i % 3 === 0 ? "bg-blue-600" : i % 3 === 1 ? "bg-sky-500" : "bg-indigo-600"}`} />
-                <span className="font-display text-lg text-slate-900 dark:text-white leading-tight">{item}</span>
-              </div>
+                {cat.label}
+              </button>
             ))}
+          </div>
+
+          {/* Cards Track: Horizontal Swipe on Mobile (< sm), Grid on Desktop */}
+          <div className="mt-6 sm:mt-10 flex sm:grid overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory gap-3.5 sm:gap-4 pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar sm:grid-cols-3 lg:grid-cols-4">
+            {industries
+              .filter((item) => {
+                if (industryFilter === "ALL") return true;
+                if (industryFilter === "INDUSTRIAL") return ["Industrial Products", "Engineering Goods", "Chemicals", "Minerals", "Metals", "Machinery & Equipment"].includes(item);
+                if (industryFilter === "AGRI") return ["Agricultural Products", "Food & FMCG"].includes(item);
+                if (industryFilter === "CONSUMER") return ["Ceramic & Tiles", "Textiles & Garments", "Consumer Products", "Automotive Components"].includes(item);
+                if (industryFilter === "PROJECT") return ["Project Cargo", "General Cargo"].includes(item);
+                return true;
+              })
+              .map((item) => {
+                const meta = industryIcons[item] || { icon: Boxes, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-900/60" };
+                const Icon = meta.icon;
+                return (
+                  <div 
+                    key={item} 
+                    className="w-[74vw] max-w-[270px] sm:max-w-none sm:w-auto shrink-0 snap-start group flex items-center gap-3.5 rounded-2xl border border-blue-100 dark:border-slate-800 bg-white dark:bg-slate-950 p-3.5 sm:p-4 shadow-sm hover:border-blue-400 dark:hover:border-blue-600 hover:shadow-md transition-all duration-300"
+                  >
+                    <div className={`flex size-11 items-center justify-center rounded-xl border ${meta.bg} ${meta.color} shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon size={21} />
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                      <span className="font-display text-sm sm:text-base text-slate-900 dark:text-white font-semibold leading-tight truncate">{item}</span>
+                      <span className="mt-1 text-[11px] text-slate-500 dark:text-slate-400 font-mono">Specialized Logistics</span>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+
+          {/* Bottom Mobile Scroll Indicator Bar */}
+          <div className="mt-3 flex items-center justify-between px-1 text-xs font-mono text-slate-500 dark:text-slate-400 sm:hidden">
+            <span className="flex items-center gap-1.5 font-medium text-blue-600 dark:text-blue-400">
+              <span className="size-2 rounded-full bg-blue-600 animate-pulse" />
+              Swipe through industry sectors →
+            </span>
+            <span className="text-[11px] text-slate-400 font-normal">
+              Horizontal carousel
+            </span>
           </div>
 
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-3xl bg-blue-600 p-8 text-white shadow-xl shadow-blue-600/20">
