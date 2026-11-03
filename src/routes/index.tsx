@@ -110,12 +110,12 @@ const approachSteps = [
 ];
 
 const stats = [
-  { value: "120+", label: "Countries Connected" },
-  { value: "50,000+", label: "TEUs & Shipments Handled" },
-  { value: "850+", label: "Trusted Business Partners" },
-  { value: "15+", label: "Years Industry Experience" },
-  { value: "24/7", label: "Operations Support" },
-  { value: "99.4%", label: "On-Time Delivery Rate" },
+  { value: "", label: "Countries Connected" },
+  { value: "", label: "TEUs & Shipments Handled" },
+  { value: "", label: "Trusted Business Partners" },
+  { value: "", label: "Years Industry Experience" },
+  { value: "", label: "Operations Support" },
+  { value: "", label: "On-Time Delivery Rate" },
 ];
 
 const industryIcons: Record<string, { icon: typeof Factory; color: string; bg: string }> = {
